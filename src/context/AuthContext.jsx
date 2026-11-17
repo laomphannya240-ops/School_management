@@ -1,0 +1,4 @@
+import {useState} from 'react'
+import {AuthContext} from './AuthContextObject.js'
+import {authService} from '../services/authService.js'
+export function AuthProvider({children}){const [user,setUser]=useState(()=>authService.current());const login=async(email,password,remember)=>{const next=await authService.login(email,password,remember);setUser(next);return next};const loginDemo=role=>{const next=authService.loginDemo(role);setUser(next);return next};const register=async(values)=>{const next=await authService.register(values);setUser(next);return next};const requestPasswordReset=email=>authService.requestPasswordReset(email);const logout=()=>{authService.logout();setUser(null)};return <AuthContext.Provider value={{user,login,loginDemo,register,requestPasswordReset,logout}}>{children}</AuthContext.Provider>}

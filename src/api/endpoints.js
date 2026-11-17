@@ -1,0 +1,24 @@
+/** Centralized Laravel REST API endpoint map. */
+export const endpoints = {
+  auth: {
+    register: '/register',
+    login: '/login',
+    logout: '/logout',
+    me: '/user',
+    forgotPassword: '/forgot-password',
+  },
+  students: '/students',
+  teachers: '/teachers',
+  classes: '/classes',
+  subjects: '/subjects',
+  academicyears: '/academic-years',
+  attendance: '/attendance',
+  exams: '/exams',
+  grades: '/grades',
+  payments: '/payments',
+  reports: '/reports',
+  notifications: '/notifications',
+  users: '/users',
+  schedules: '/schedules',
+  settings: '/settings',
+}
