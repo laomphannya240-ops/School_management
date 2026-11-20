@@ -1,5 +1,5 @@
 import {useEffect,useRef,useState} from 'react'
-import {Activity,Bell,BookOpen,CalendarDays,Check,ChevronDown,ChevronRight,ClipboardList,CreditCard,GraduationCap,LayoutDashboard,LogOut,Menu,Moon,Settings,Shield,Sun,Users,X} from 'lucide-react'
+import {Activity,Bell,BookOpen,Building2,CalendarDays,Check,ChevronDown,ChevronRight,ClipboardList,CreditCard,DoorOpen,GraduationCap,Layers,LayoutDashboard,LayoutGrid,LogOut,Menu,Moon,Settings,Shield,Sun,Users,X} from 'lucide-react'
 import {Navigate,Outlet,useLocation,useNavigate} from 'react-router-dom'
 import ConfirmDialog from '../components/common/ConfirmDialog.jsx'
 import NotificationDropdown from '../components/common/NotificationDropdown.jsx'
@@ -8,7 +8,8 @@ import {useAuth} from '../hooks/useAuth.js'
 import {usePreferences} from '../hooks/usePreferences.js'
 import {useToast} from '../hooks/useToast.js'
 
-const navigationIcons={dashboard:LayoutDashboard,students:GraduationCap,teachers:Users,classes:BookOpen,subjects:ClipboardList,academicyears:CalendarDays,attendance:CalendarDays,exams:ClipboardList,grades:Activity,schedules:CalendarDays,payments:CreditCard,users:Users,reports:Activity,notifications:Bell,settings:Settings,myclasses:BookOpen,mystudents:GraduationCap,myschedule:CalendarDays,myattendance:CalendarDays,myresults:Activity,profile:Shield}
+const navigationIcons={dashboard:LayoutDashboard,'building-overview':LayoutGrid,buildings:Building2,floors:Layers,rooms:DoorOpen,'room-assignments':ClipboardList,students:GraduationCap,teachers:Users,classes:BookOpen,subjects:ClipboardList,academicyears:CalendarDays,attendance:CalendarDays,exams:ClipboardList,grades:Activity,schedules:CalendarDays,payments:CreditCard,users:Users,reports:Activity,notifications:Bell,settings:Settings,myclasses:BookOpen,mystudents:GraduationCap,myschedule:CalendarDays,myattendance:CalendarDays,myresults:Activity,profile:Shield}
+const BUILDING_MODULES=['building-overview','buildings','floors','rooms','room-assignments']
 
 export default function RoleLayout(){
  const {user,logout}=useAuth()
@@ -21,8 +22,13 @@ export default function RoleLayout(){
  const [supportOpen,setSupportOpen]=useState(false)
  const [logoutOpen,setLogoutOpen]=useState(false)
  const [langOpen,setLangOpen]=useState(false)
+ const [buildingsOpen,setBuildingsOpen]=useState(true)
  const [currentTime,setCurrentTime]=useState(()=>new Date())
  const langMenuRef=useRef(null)
+ const active=location.pathname.split('/')[1]||'dashboard'
+ const allowed=roleModules[user?.role]||[]
+ const buildingItems=allowed.filter((key)=>BUILDING_MODULES.includes(key))
+ const mainItems=allowed.filter((key)=>!BUILDING_MODULES.includes(key))
  useEffect(()=>{const timer=window.setInterval(()=>setCurrentTime(new Date()),60_000);return ()=>window.clearInterval(timer)},[])
  useEffect(()=>{
   if(!langOpen)return undefined
@@ -32,6 +38,7 @@ export default function RoleLayout(){
   document.addEventListener('keydown',onKeyDown)
   return ()=>{document.removeEventListener('mousedown',onPointerDown);document.removeEventListener('keydown',onKeyDown)}
  },[langOpen])
+ useEffect(()=>{if(BUILDING_MODULES.includes(active))setBuildingsOpen(true)},[active])
  const changeLanguage=(next)=>{
   if(next===lang){setLangOpen(false);return}
   setLang(next)
@@ -40,16 +47,26 @@ export default function RoleLayout(){
  }
 
  if(!user)return <Navigate to="/login" replace/>
- const active=location.pathname.split('/')[1]||'dashboard'
- const allowed=roleModules[user.role]||[]
  if(!canAccessModule(user.role,active))return <Navigate to="/" replace/>
+
+ const navButton=(key,sub=false)=>{const Icon=navigationIcons[key]||LayoutDashboard;return <button key={key} className={`nav-item ${sub?'sub-item':''} ${active===key?'active':''}`} onClick={()=>{navigate(key==='dashboard'?'/':`/${key}`);setDrawer(false)}}><Icon size={sub?16:18}/><span>{t(key)}</span>{key==='notifications'&&<i className="nav-dot"/>}</button>}
 
  return <div className={`app-shell ${theme}`}>
   <aside className={`sidebar ${drawer?'open':''}`}>
    <div className="brand"><div className="brand-mark"><GraduationCap size={23}/></div><span><b>SMS</b><small>School portal</small></span><button className="icon-btn drawer-close" aria-label={t('close')} onClick={()=>setDrawer(false)}><X size={18}/></button></div>
    <div className="school-switch"><div className="school-emblem">K</div><span><b>សាលាបឋមសិក្សា</b><small>Phnom Penh, Cambodia</small></span></div>
    <p className="nav-label">{t('workspace')}</p>
-   <nav>{allowed.map(key=>{const Icon=navigationIcons[key]||LayoutDashboard;return <button key={key} className={`nav-item ${active===key?'active':''}`} onClick={()=>{navigate(key==='dashboard'?'/':`/${key}`);setDrawer(false)}}><Icon size={18}/><span>{t(key)}</span>{key==='notifications'&&<i className="nav-dot"/>}</button>})}</nav>
+   <nav>
+    {mainItems.map((key)=>navButton(key))}
+    {buildingItems.length>0&&(
+     <div className="nav-group">
+      <button type="button" className={`nav-item nav-group-toggle ${buildingItems.includes(active)?'active':''}`} onClick={()=>setBuildingsOpen((open)=>!open)}>
+       <Building2 size={18}/><span>{t('schoolBuildings')}</span><ChevronDown size={14} className={`nav-caret ${buildingsOpen?'open':''}`}/>
+      </button>
+      {buildingsOpen&&<div className="nav-submenu">{buildingItems.map((key)=>navButton(key,true))}</div>}
+     </div>
+    )}
+   </nav>
    <div className="sidebar-bottom"><div className="support-card"><div className="support-mark">✦</div><b>{t('needHelp')}</b><small>{t('helpDescription')}</small><button onClick={()=>setSupportOpen(true)}>{t('contactSupport')} <ChevronRight size={14}/></button></div><button className="user-row" onClick={()=>setLogoutOpen(true)}><div className={`avatar ${user.role}`}>{user.name[0]}</div><span><b>{user.name}</b><small>{t(user.role)}</small></span><LogOut size={16}/></button></div>
   </aside>
   {drawer&&<button className="scrim" aria-label={t('close')} onClick={()=>setDrawer(false)}/>}

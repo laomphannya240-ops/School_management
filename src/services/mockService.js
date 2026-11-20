@@ -148,6 +148,34 @@ export const moduleRecords = {
     { user_id: 'USR-002', name: 'Dara Sok', email: 'teacher@school.edu', phone: '+855 12 345 111', role: 'teacher', status: 'Active' },
     { user_id: 'USR-003', name: 'Sokha Lim', email: 'student@school.edu', phone: '+855 12 555 222', role: 'student', status: 'Active' },
   ],
+  buildings: [
+    { building_id: 'BLD-001', name: 'Building A', code: 'B001', description: 'Main academic building for lower secondary classes.', numberOfFloors: 3, status: 'Active' },
+    { building_id: 'BLD-002', name: 'Building B', code: 'B002', description: 'Science and computer laboratories.', numberOfFloors: 2, status: 'Active' },
+    { building_id: 'BLD-003', name: 'Building C', code: 'B003', description: 'Administration and meeting facilities.', numberOfFloors: 1, status: 'Maintenance' },
+  ],
+  floors: [
+    { floor_id: 'FLR-001', building_id: 'BLD-001', buildingName: 'Building A', name: 'Ground Floor', floor_number: 0, description: 'Reception and shared classrooms.', status: 'Active' },
+    { floor_id: 'FLR-002', building_id: 'BLD-001', buildingName: 'Building A', name: 'Floor 1', floor_number: 1, description: 'Grade 7-8 classrooms.', status: 'Active' },
+    { floor_id: 'FLR-003', building_id: 'BLD-001', buildingName: 'Building A', name: 'Floor 2', floor_number: 2, description: 'Grade 9-10 classrooms.', status: 'Active' },
+    { floor_id: 'FLR-004', building_id: 'BLD-002', buildingName: 'Building B', name: 'Ground Floor', floor_number: 0, description: 'Computer and science labs.', status: 'Active' },
+    { floor_id: 'FLR-005', building_id: 'BLD-002', buildingName: 'Building B', name: 'Floor 1', floor_number: 1, description: 'Library and study areas.', status: 'Active' },
+    { floor_id: 'FLR-006', building_id: 'BLD-003', buildingName: 'Building C', name: 'Ground Floor', floor_number: 0, description: 'Office and meeting rooms.', status: 'Active' },
+  ],
+  rooms: [
+    { room_id: 'ROM-101', building_id: 'BLD-001', floor_id: 'FLR-002', buildingName: 'Building A', floorName: 'Floor 1', name: 'Room 101', code: 'A-101', room_type: 'Classroom', capacity: 35, currentUsage: 32, description: 'Standard classroom with projector.', status: 'Occupied' },
+    { room_id: 'ROM-102', building_id: 'BLD-001', floor_id: 'FLR-002', buildingName: 'Building A', floorName: 'Floor 1', name: 'Room 102', code: 'A-102', room_type: 'Classroom', capacity: 35, currentUsage: 30, description: 'Standard classroom.', status: 'Occupied' },
+    { room_id: 'ROM-201', building_id: 'BLD-001', floor_id: 'FLR-003', buildingName: 'Building A', floorName: 'Floor 2', name: 'Room 201', code: 'A-201', room_type: 'Classroom', capacity: 40, currentUsage: 28, description: 'Large classroom.', status: 'Occupied' },
+    { room_id: 'ROM-202', building_id: 'BLD-001', floor_id: 'FLR-003', buildingName: 'Building A', floorName: 'Floor 2', name: 'Room 202', code: 'A-202', room_type: 'Classroom', capacity: 40, currentUsage: 0, description: 'Available classroom.', status: 'Available' },
+    { room_id: 'ROM-LAB1', building_id: 'BLD-002', floor_id: 'FLR-004', buildingName: 'Building B', floorName: 'Ground Floor', name: 'Computer Lab 1', code: 'B-LAB1', room_type: 'Computer Lab', capacity: 30, currentUsage: 0, description: 'Computer lab with 30 stations.', status: 'Available' },
+    { room_id: 'ROM-SCI1', building_id: 'BLD-002', floor_id: 'FLR-004', buildingName: 'Building B', floorName: 'Ground Floor', name: 'Science Lab', code: 'B-SCI1', room_type: 'Science Lab', capacity: 28, currentUsage: 0, description: 'Physics and chemistry lab.', status: 'Maintenance' },
+    { room_id: 'ROM-LIB1', building_id: 'BLD-002', floor_id: 'FLR-005', buildingName: 'Building B', floorName: 'Floor 1', name: 'Library', code: 'B-LIB1', room_type: 'Library', capacity: 60, currentUsage: 12, description: 'Main school library.', status: 'Available' },
+    { room_id: 'ROM-OFF1', building_id: 'BLD-003', floor_id: 'FLR-006', buildingName: 'Building C', floorName: 'Ground Floor', name: 'Admin Office', code: 'C-OFF1', room_type: 'Office', capacity: 10, currentUsage: 6, description: 'Administration office.', status: 'Occupied' },
+  ],
+  'room-assignments': [
+    { assignment_id: 'ASM-001', class_id: 'CLS-08A', className: 'Grade 8A', building_id: 'BLD-001', buildingName: 'Building A', floor_id: 'FLR-002', floorName: 'Floor 1', room_id: 'ROM-101', roomName: 'Room 101', academic_year_id: 'AY-2025', academicYear: '2025–2026', start_date: '2025-09-01', end_date: '2026-07-31' },
+    { assignment_id: 'ASM-002', class_id: 'CLS-09B', className: 'Grade 9B', building_id: 'BLD-001', buildingName: 'Building A', floorName: 'Floor 2', floor_id: 'FLR-003', room_id: 'ROM-201', roomName: 'Room 201', academic_year_id: 'AY-2025', academicYear: '2025–2026', start_date: '2025-09-01', end_date: '2026-07-31' },
+    { assignment_id: 'ASM-003', class_id: 'CLS-07A', className: 'Grade 7A', building_id: 'BLD-001', buildingName: 'Building A', floor_id: 'FLR-002', floorName: 'Floor 1', room_id: 'ROM-102', roomName: 'Room 102', academic_year_id: 'AY-2025', academicYear: '2025–2026', start_date: '2025-09-01', end_date: '2026-07-31' },
+  ],
   reports: [],
   settings: [],
 }
@@ -178,6 +206,8 @@ const ROLE_FILTERS = {
     myattendance: (row) => row.class === 'Grade 8A',
     schedules: (row) => row.class === 'Grade 8A',
     myschedule: (row) => row.class === 'Grade 8A',
+    'room-assignments': (row) => row.className === 'Grade 8A' || row.class_id === 'CLS-08A',
+    rooms: (row) => ['ROM-101'].includes(row.room_id),
   },
   teacher: {
     students: (row) => ['Grade 8A', 'Grade 9B'].includes(row.class),
@@ -188,6 +218,8 @@ const ROLE_FILTERS = {
     attendance: (row) => ['Grade 8A', 'Grade 9B'].includes(row.class),
     schedules: (row) => ['Grade 8A', 'Grade 9B'].includes(row.class),
     myschedule: (row) => ['Grade 8A', 'Grade 9B'].includes(row.class),
+    'room-assignments': (row) => ['Grade 8A', 'Grade 9B'].includes(row.className) || ['CLS-08A', 'CLS-09B'].includes(row.class_id),
+    rooms: (row) => ['ROM-101', 'ROM-201'].includes(row.room_id),
   },
 }
 

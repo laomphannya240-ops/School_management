@@ -21,4 +21,8 @@ export const endpoints = {
   users: '/users',
   schedules: '/schedules',
   settings: '/settings',
+  buildings: '/buildings',
+  floors: '/floors',
+  rooms: '/rooms',
+  'room-assignments': '/room-assignments',
 }

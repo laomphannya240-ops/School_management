@@ -5,16 +5,17 @@
  */
 export const roleModules = {
   admin: [
-    'dashboard', 'students', 'teachers', 'classes', 'subjects', 'academicyears',
+    'dashboard', 'building-overview', 'buildings', 'floors', 'rooms', 'room-assignments',
+    'students', 'teachers', 'classes', 'subjects', 'academicyears',
     'attendance', 'exams', 'grades', 'schedules', 'payments', 'users', 'reports',
     'notifications', 'settings',
   ],
   teacher: [
-    'dashboard', 'myclasses', 'mystudents', 'subjects', 'attendance', 'exams',
+    'dashboard', 'building-overview', 'rooms', 'room-assignments', 'myclasses', 'mystudents', 'subjects', 'attendance', 'exams',
     'grades', 'myschedule', 'notifications', 'profile',
   ],
   student: [
-    'dashboard', 'profile', 'myclasses', 'subjects', 'myattendance', 'grades',
+    'dashboard', 'building-overview', 'rooms', 'room-assignments', 'profile', 'myclasses', 'subjects', 'myattendance', 'grades',
     'myschedule', 'payments', 'notifications',
   ],
 }

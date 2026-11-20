@@ -9,6 +9,11 @@ import ModulePage from '../pages/ModulePage.jsx'
 import AttendancePage from '../pages/AttendancePage.jsx'
 import ReportsPage from '../pages/ReportsPage.jsx'
 import SettingsPage from '../pages/SettingsPage.jsx'
+import BuildingOverviewPage from '../pages/BuildingOverviewPage.jsx'
+import BuildingsPage from '../pages/BuildingsPage.jsx'
+import FloorsPage from '../pages/FloorsPage.jsx'
+import RoomsPage from '../pages/RoomsPage.jsx'
+import RoomAssignmentsPage from '../pages/RoomAssignmentsPage.jsx'
 import AuthLayout from '../layouts/AuthLayout.jsx'
 import RoleLayout from '../layouts/RoleLayout.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
@@ -17,9 +22,13 @@ function ModuleRoute() {
   const { module } = useParams()
   const { user } = useAuth()
   const { t } = usePreferences()
-  return module === 'attendance'
-    ? <AttendancePage key={module} role={user.role} t={t} />
-    : <ModulePage key={module} module={module} role={user.role} t={t} />
+  if (module === 'attendance') return <AttendancePage key={module} role={user.role} t={t} />
+  if (module === 'building-overview') return <BuildingOverviewPage key={module} role={user.role} t={t} />
+  if (module === 'buildings') return <BuildingsPage key={module} role={user.role} t={t} />
+  if (module === 'floors') return <FloorsPage key={module} role={user.role} t={t} />
+  if (module === 'rooms') return <RoomsPage key={module} role={user.role} t={t} />
+  if (module === 'room-assignments') return <RoomAssignmentsPage key={module} role={user.role} t={t} />
+  return <ModulePage key={module} module={module} role={user.role} t={t} />
 }
 function DashboardRoute() {
   const { user } = useAuth()

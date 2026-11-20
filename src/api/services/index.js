@@ -1,12 +1,16 @@
 import { authApi } from './authApi.js'
 import { academicYearService } from './academicYearService.js'
 import { attendanceService } from './attendanceService.js'
+import { buildingService } from './buildingService.js'
 import { classService } from './classService.js'
 import { examService } from './examService.js'
+import { floorService } from './floorService.js'
 import { gradeService } from './gradeService.js'
 import { notificationService } from './notificationService.js'
 import { paymentService } from './paymentService.js'
 import { reportService } from './reportService.js'
+import { roomAssignmentService } from './roomAssignmentService.js'
+import { roomService } from './roomService.js'
 import { scheduleService } from './scheduleService.js'
 import { settingService } from './settingService.js'
 import { studentService } from './studentService.js'
@@ -18,12 +22,16 @@ export {
   authApi,
   academicYearService,
   attendanceService,
+  buildingService,
   classService,
   examService,
+  floorService,
   gradeService,
   notificationService,
   paymentService,
   reportService,
+  roomAssignmentService,
+  roomService,
   scheduleService,
   settingService,
   studentService,
@@ -48,6 +56,10 @@ export const apiResources = {
   users: userService,
   schedules: scheduleService,
   settings: settingService,
+  buildings: buildingService,
+  floors: floorService,
+  rooms: roomService,
+  'room-assignments': roomAssignmentService,
 }
 
 /** Normalize role-scoped module names to the matching API resource. */

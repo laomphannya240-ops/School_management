@@ -87,5 +87,35 @@ export const moduleSchemas = {
   myschedule: { columns: ['schedule_id', 'date', 'startTime', 'endTime', 'class', 'subject', 'status'], fields: [] },
   myattendance: { columns: ['attendance_id', 'date', 'name', 'class', 'status'], fields: [] },
   myresults: { columns: ['result_id', 'name', 'class', 'subject', 'amount', 'grade', 'status'], fields: [] },
+  buildings: {
+    columns: ['code', 'name', 'numberOfFloors', 'status', 'description'],
+    fields: [
+      field('name', 'text', true), field('code', 'text', true), field('numberOfFloors', 'number', true),
+      field('description', 'textarea'), field('status', 'status', true),
+    ],
+  },
+  floors: {
+    columns: ['buildingName', 'floor_number', 'name', 'status', 'description'],
+    fields: [
+      field('building_id', 'text', true), field('name', 'text', true), field('floor_number', 'number', true),
+      field('description', 'textarea'), field('status', 'status', true),
+    ],
+  },
+  rooms: {
+    columns: ['code', 'name', 'buildingName', 'floorName', 'room_type', 'capacity', 'status'],
+    fields: [
+      field('name', 'text', true), field('code', 'text', true), field('building_id', 'text', true),
+      field('floor_id', 'text', true), field('room_type', 'text', true), field('capacity', 'number', true),
+      field('description', 'textarea'), field('status', 'status', true),
+    ],
+  },
+  'room-assignments': {
+    columns: ['className', 'buildingName', 'floorName', 'roomName', 'academicYear', 'start_date', 'end_date'],
+    fields: [
+      field('class_id', 'text', true), field('building_id', 'text', true), field('floor_id', 'text', true),
+      field('room_id', 'text', true), field('academic_year_id', 'text', true),
+      field('start_date', 'date', true), field('end_date', 'date'),
+    ],
+  },
   profile: { columns: ['name', 'subject', 'phone', 'email', 'status'], fields: [field('name', 'text', true), field('subject'), field('phone', 'tel'), field('email', 'email')] },
 }
