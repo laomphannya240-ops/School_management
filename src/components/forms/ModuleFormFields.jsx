@@ -19,7 +19,7 @@ export default function ModuleFormFields({ fields, register, errors, t, editing 
               {ACCOUNT_ROLES.map((value) => <option key={value} value={value}>{t(value)}</option>)}
             </select>
           ) : type === 'yesNo' ? (
-            <select {...register(key, { required })}>
+            <select {...register(key, { required })} defaultValue={editing?.[key] || 'No'}>
               <option value="No">{t('no')}</option>
               <option value="Yes">{t('yes')}</option>
             </select>

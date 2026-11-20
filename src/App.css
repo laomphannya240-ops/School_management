@@ -124,6 +124,13 @@
 .auth-quick-actions{position:absolute;top:22px;right:26px;display:flex;align-items:center;gap:8px}
 .auth-page .toast-stack{top:18px;bottom:auto}
 
+/* ---------- Language menu ---------- */
+.lang-menu-wrap{display:inline-flex}
+.lang-menu{width:160px;padding:6px;display:grid;gap:2px}
+.lang-option{width:100%;border:0;background:transparent;color:var(--text);padding:8px 9px;border-radius:7px;display:flex;align-items:center;justify-content:space-between;font-size:10px;text-align:left}
+.lang-option:hover{background:var(--soft)}
+.lang-option.active{background:var(--blue-soft);color:var(--blue);font-weight:600}
+
 /* ---------- Dark mode ---------- */
 html[data-theme=dark] .toast{background:var(--surface)}
 html[data-theme=dark] .error-icon{background:#482b31;color:#ffb5ab}
